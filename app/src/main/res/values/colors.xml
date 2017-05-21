@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="app.toolbar">#212121</color>
+    <color name="app.status_bar">#000000</color>
+    <color name="app.background">#303030</color>
+
+    <color name="text.white.primary">#FFFFFF</color>
+    <color name="text.white.secondary">#8affffff</color>
+    <color name="text.dark.secondary">#8a000000</color>
+
+    <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#92CBC5</color>
 </resources>

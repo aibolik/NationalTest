@@ -1,0 +1,27 @@
+package kz.akmarzhan.nationaltest.restapi;
+
+import java.util.List;
+
+import kz.akmarzhan.nationaltest.models.Predmet;
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+/**
+ * Created by Aibol Kussain on 5/20/2017.
+ * Working on NationalTest. MobiLabs
+ * You can contact me at: aibolikdev@gmail.com
+ */
+
+public interface TestApi {
+
+    String BASE_URL = "https://api.backendless.com/8F478107-785F-D829-FFDF-67D925063F00/9FA46096-E183-6ADA-FF28-1D0F7F083D00/data/";
+
+    /*
+        Predmets request APIs
+    */
+
+    @GET("predmets")
+    Call<List<Predmet>> getPredmets();
+
+
+}
