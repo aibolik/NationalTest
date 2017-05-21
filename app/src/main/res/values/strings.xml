@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">National Test</string>
+
+    <!--Login screen strings-->
+
+    <string name="login.login.hint">Enter your email</string>
+    <string name="login.password.hint">Enter your password</string>
+    <string name="login.button.login.text">Login</string>
+    <string name="login.button.register.text">Register</string>
+
+    <!--Register screen string-->
+    
+    <string name="register.personal.title">Personal information</string>
+    <string name="register.name.hint">Enter your name</string>
+    <string name="register.email.hint">your@email.com</string>
+    <string name="register.password.title">Password</string>
+    <string name="register.password.hint">Enter your password</string>
+    <string name="register.password2.hint">Confirm your password</string>
+    
 </resources>
