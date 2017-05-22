@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import kz.akmarzhan.nationaltest.bus.BusProvider;
 import kz.akmarzhan.nationaltest.restapi.TestApi;
 import kz.akmarzhan.nationaltest.restapi.TestService;
@@ -31,6 +33,12 @@ public class Application extends android.app.Application {
                 Defaults.BACKENDLESS_APPLICATION_ID,
                 Defaults.BACKENDLESS_API_KEY);
 
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
 
         mTestService = new TestService(buildApi(), mBus);
 

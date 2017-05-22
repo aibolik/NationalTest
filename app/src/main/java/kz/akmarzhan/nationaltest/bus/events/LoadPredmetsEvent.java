@@ -7,4 +7,10 @@ package kz.akmarzhan.nationaltest.bus.events;
  */
 
 public class LoadPredmetsEvent {
+
+    public String objectId;
+
+    public LoadPredmetsEvent(String objectId) {
+        this.objectId = objectId;
+    }
 }

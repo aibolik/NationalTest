@@ -1,17 +1,14 @@
 package kz.akmarzhan.nationaltest.restapi;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.util.List;
+import java.util.Map;
 
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
-import kz.akmarzhan.nationaltest.bus.events.PredmetsLoadedEvent;
-import kz.akmarzhan.nationaltest.models.Predmet;
-import kz.akmarzhan.nationaltest.utils.Logger;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -33,16 +30,26 @@ public class TestService {
 
     @Subscribe
     public void onGetPredmets(LoadPredmetsEvent event) {
-        mApi.getPredmets().enqueue(new Callback<List<Predmet>>() {
-            @Override public void onResponse(Call<List<Predmet>> call, Response<List<Predmet>> response) {
-                Logger.d(TAG, "onResponse: " + call.request().toString());
-                mBus.post(new PredmetsLoadedEvent(response.body()));
+        Backendless.Persistence.of( "Users" ).findById(event.objectId, new AsyncCallback<Map>() {
+            @Override public void handleResponse(Map user) {
+
             }
 
-            @Override public void onFailure(Call<List<Predmet>> call, Throwable t) {
+            @Override public void handleFault(BackendlessFault fault) {
 
             }
         });
+
+//        mApi.getPredmets().enqueue(new Callback<List<Predmet>>() {
+//            @Override public void onResponse(Call<List<Predmet>> call, Response<List<Predmet>> response) {
+//                Logger.d(TAG, "onResponse: " + call.request().toString());
+//                mBus.post(new PredmetsLoadedEvent(response.body()));
+//            }
+//
+//            @Override public void onFailure(Call<List<Predmet>> call, Throwable t) {
+//
+//            }
+//        });
     }
 
 }

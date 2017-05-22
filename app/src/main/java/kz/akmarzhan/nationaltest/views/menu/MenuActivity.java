@@ -48,12 +48,14 @@ public class MenuActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvPredmets.setLayoutManager(linearLayoutManager);
         rvPredmets.setAdapter(mPredmetsAdapter);
+
+        getUser();
     }
 
     @Override protected void onResume() {
         super.onResume();
 
-        getBus().post(new LoadPredmetsEvent());
+        getBus().post(new LoadPredmetsEvent(mUser.getObjectId()));
     }
 
     @Subscribe
