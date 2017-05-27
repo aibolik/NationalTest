@@ -1,6 +1,7 @@
 package kz.akmarzhan.nationaltest.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kz.akmarzhan.nationaltest.R;
-import kz.akmarzhan.nationaltest.models.Predmet;
+import kz.akmarzhan.nationaltest.models.UserPredmet;
+import kz.akmarzhan.nationaltest.utils.Utils;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -23,7 +25,7 @@ import kz.akmarzhan.nationaltest.models.Predmet;
 
 public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.PredmetHolder> {
 
-    private List<Predmet> mPredmets;
+    private List<UserPredmet> mPredmets;
 
     public PredmetsAdapter() {
         mPredmets = new ArrayList<>();
@@ -36,15 +38,18 @@ public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.Predme
     }
 
     @Override public void onBindViewHolder(PredmetHolder holder, int position) {
-        Predmet predmet = mPredmets.get(position);
-        holder.tvPredmet.setText(predmet.getName());
+        UserPredmet predmet = mPredmets.get(position);
+        Pair<Integer, Integer> levelPair = Utils.getLevelByExpereience(predmet.getExp());
+        holder.tvPredmet.setText(predmet.getPredmet().getName());
+        holder.tvLevel.setText(String.valueOf(levelPair.first));
+        holder.tvExp.setText(predmet.getExp() + "/" + levelPair.second);
     }
 
     @Override public int getItemCount() {
         return mPredmets.size();
     }
 
-    public void setPredmets(List<Predmet> predmets) {
+    public void setPredmets(List<UserPredmet> predmets) {
         mPredmets = predmets;
         notifyDataSetChanged();
     }

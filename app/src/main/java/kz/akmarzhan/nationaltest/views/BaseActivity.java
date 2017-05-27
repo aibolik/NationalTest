@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.squareup.otto.Bus;
@@ -61,6 +62,24 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
 
         getBus().unregister(this);
+    }
+
+    protected void saveUser(final BackendlessUser loggedInUser,
+                          Realm.Transaction.OnSuccess onSuccess,
+                          Realm.Transaction.OnError onError) {
+        Logger.d(TAG, "saveUser: ");
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                User user = new User();
+                user.setObjectId(loggedInUser.getObjectId());
+                user.setName(loggedInUser.getProperty("name").toString());
+                user.setEmail(loggedInUser.getEmail());
+                bgRealm.copyToRealmOrUpdate(user);
+            }
+        }, onSuccess, onError);
+
     }
 
     protected void getUser() {

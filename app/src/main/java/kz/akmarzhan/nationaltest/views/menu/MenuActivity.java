@@ -1,12 +1,15 @@
 package kz.akmarzhan.nationaltest.views.menu;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.squareup.otto.Subscribe;
@@ -14,11 +17,13 @@ import com.squareup.otto.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 import kz.akmarzhan.nationaltest.R;
 import kz.akmarzhan.nationaltest.adapters.PredmetsAdapter;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
-import kz.akmarzhan.nationaltest.bus.events.PredmetsLoadedEvent;
+import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
 import kz.akmarzhan.nationaltest.utils.Logger;
+import kz.akmarzhan.nationaltest.utils.Utils;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 
 /**
@@ -35,6 +40,9 @@ public class MenuActivity extends BaseActivity {
     @BindView(R.id.fabtoolbar_fab) FloatingActionButton fabMenu;
     @BindView(R.id.fabtoolbar_toolbar) ViewGroup fabToolbar;
     @BindView(R.id.rv_predmets) RecyclerView rvPredmets;
+    @BindView(R.id.tv_name) TextView tvUserName;
+    @BindView(R.id.tv_level_info) TextView tvUserLevelInfo;
+    @BindView(R.id.tv_level) TextView tvUserLevel;
 
     private PredmetsAdapter mPredmetsAdapter;
 
@@ -59,8 +67,19 @@ public class MenuActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void onPredmetsLoaded(PredmetsLoadedEvent event) {
+    public void onPredmetsLoaded(final UserPredmetsLoadedEvent event) {
         mPredmetsAdapter.setPredmets(event.mPredmets);
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override public void execute(Realm realm) {
+                mUser.setExp(event.mUserExp);
+            }
+        });
+        Pair<Integer, Integer> levelPair = Utils.getLevelByExpereience(mUser.getExp());
+        int level = levelPair.first;
+        tvUserLevel.setText(String.valueOf(level));
+        Resources res = getResources();
+        String userLevelInfo = res.getString(R.string.user_level_info, mUser.getExp(), level);
+        tvUserLevelInfo.setText(userLevelInfo);
     }
 
     @OnClick(R.id.fabtoolbar_fab) void showToolbar() {
@@ -70,10 +89,9 @@ public class MenuActivity extends BaseActivity {
 
     @Override public void onBackPressed() {
         Logger.d(TAG, "onBackPressed: ");
-        if(fabToolbar.getVisibility() == View.VISIBLE) {
+        if (fabToolbar.getVisibility() == View.VISIBLE) {
             ftlLayout.hide();
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }

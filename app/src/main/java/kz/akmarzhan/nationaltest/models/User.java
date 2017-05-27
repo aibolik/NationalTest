@@ -21,6 +21,8 @@ public class User extends RealmObject {
     @SerializedName("email")
     private String email;
 
+    private int exp;
+
     public User() {
 
     }
@@ -47,5 +49,13 @@ public class User extends RealmObject {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 }

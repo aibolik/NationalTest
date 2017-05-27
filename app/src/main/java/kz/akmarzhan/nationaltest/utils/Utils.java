@@ -1,5 +1,7 @@
 package kz.akmarzhan.nationaltest.utils;
 
+import android.util.Pair;
+
 /**
  * Created by Aibol Kussain on 5/21/2017.
  * Working on NationalTest. MobiLabs
@@ -22,4 +24,23 @@ public class Utils {
         return target == null || target.isEmpty();
     }
 
+    public static Pair<Integer, Integer> getLevelByExpereience(int exp) {
+        int a = 10;
+        int b = 20;
+        int c;
+        if(exp < a) {
+            return new Pair<Integer, Integer>(1, a);
+        }
+        if (exp < b) {
+            new Pair<Integer, Integer>(2, b);
+        }
+        int level = 2;
+        while(exp < b) {
+            level++;
+            c = b;
+            b = a + b;
+            a = c;
+        }
+        return new Pair<Integer, Integer>(level, b);
+    }
 }

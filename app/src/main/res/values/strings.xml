@@ -17,4 +17,11 @@
     <string name="register.password.hint">Enter your password</string>
     <string name="register.password2.hint">Confirm your password</string>
     
+    <!--Main menu strings-->
+
+
+    <!--Other strings-->
+
+    <string name="user_level_info">%1$d xp | Level %2$d</string>
+    
 </resources>

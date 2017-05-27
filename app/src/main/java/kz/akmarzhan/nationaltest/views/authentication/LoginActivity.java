@@ -16,7 +16,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
 import kz.akmarzhan.nationaltest.R;
-import kz.akmarzhan.nationaltest.models.User;
 import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 import kz.akmarzhan.nationaltest.views.menu.MenuActivity;
@@ -43,11 +42,26 @@ public class LoginActivity extends BaseActivity {
                 "Signing in. Please wait...", true);
         Backendless.UserService.login(etEmail.getText().toString(),
                 etPassword.getText().toString(), new AsyncCallback<BackendlessUser>() {
-                    public void handleResponse(BackendlessUser loggedInUser) {
+                    public void handleResponse(final BackendlessUser loggedInUser) {
                         if (dialog != null && dialog.isShowing()) {
                             dialog.hide();
                         }
-                        saveUser(loggedInUser);
+                        saveUser(loggedInUser, new Realm.Transaction.OnSuccess() {
+                            @Override
+                            public void onSuccess() {
+                                Logger.d(TAG, "onSuccess: user added: " + loggedInUser.toString());
+                                Intent intent = new Intent(getContext(), MenuActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                        }, new Realm.Transaction.OnError() {
+                            @Override
+                            public void onError(Throwable error) {
+                                Logger.d(TAG, "onError: user not added - " + error.getMessage());
+                            }
+                        });
                     }
 
                     public void handleFault(BackendlessFault fault) {
@@ -66,35 +80,6 @@ public class LoginActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    private void saveUser(final BackendlessUser loggedInUser) {
-        Logger.d(TAG, "saveUser: ");
 
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                User user = new User();
-                user.setObjectId(loggedInUser.getObjectId());
-                user.setName(loggedInUser.getProperty("name").toString());
-                user.setEmail(loggedInUser.getEmail());
-                bgRealm.copyToRealmOrUpdate(user);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                Logger.d(TAG, "onSuccess: user added: " + loggedInUser.toString());
-                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Logger.d(TAG, "onError: user not added - " + error.getMessage());
-            }
-        });
-
-    }
 
 }

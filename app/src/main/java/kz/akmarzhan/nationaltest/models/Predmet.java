@@ -1,5 +1,7 @@
 package kz.akmarzhan.nationaltest.models;
 
+import java.util.HashMap;
+
 /**
  * Created by Aibol Kussain on 5/20/2017.
  * Working on NationalTest. MobiLabs
@@ -8,14 +10,28 @@ package kz.akmarzhan.nationaltest.models;
 
 public class Predmet {
 
-    private long id;
+    private String objectId;
+
+    private int id;
     private String name;
+
+    public Predmet() {
+
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -25,5 +41,28 @@ public class Predmet {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override public String toString() {
+        return "Predmet{" +
+                "objectId='" + objectId + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public static Predmet createPredmetFromMap(HashMap<String, Object> map) {
+        Predmet predmet = new Predmet();
+        for(HashMap.Entry<String, Object> entry : map.entrySet()) {
+            switch (entry.getKey()) {
+                case "objectId":
+                    predmet.setObjectId((String) entry.getValue());
+                    break;
+                case "name":
+                    predmet.setName((String) entry.getValue());
+                    break;
+            }
+        }
+        return predmet;
     }
 }
