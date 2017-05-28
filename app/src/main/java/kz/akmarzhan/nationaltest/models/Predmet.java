@@ -1,6 +1,7 @@
 package kz.akmarzhan.nationaltest.models;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -10,10 +11,13 @@ import java.util.HashMap;
 
 public class Predmet {
 
+
+
     private String objectId;
 
     private int id;
     private String name;
+    private List<Test> tests;
 
     public Predmet() {
 
@@ -41,6 +45,14 @@ public class Predmet {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
     }
 
     @Override public String toString() {

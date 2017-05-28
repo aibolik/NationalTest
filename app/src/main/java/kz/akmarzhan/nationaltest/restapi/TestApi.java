@@ -23,5 +23,15 @@ public interface TestApi {
     @GET("predmets")
     Call<List<Predmet>> getPredmets();
 
+//        mApi.getPredmets().enqueue(new Callback<List<Predmet>>() {
+//            @Override public void onResponse(Call<List<Predmet>> call, Response<List<Predmet>> response) {
+//                Logger.d(TAG, "onResponse: " + call.request().toString());
+//                mBus.post(new UserPredmetsLoadedEvent(response.body()));
+//            }
+//
+//            @Override public void onFailure(Call<List<Predmet>> call, Throwable t) {
+//
+//            }
+//        });
 
 }

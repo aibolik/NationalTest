@@ -1,5 +1,6 @@
 package kz.akmarzhan.nationaltest.views.menu;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,13 +19,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import kz.akmarzhan.nationaltest.Defaults;
 import kz.akmarzhan.nationaltest.R;
 import kz.akmarzhan.nationaltest.adapters.PredmetsAdapter;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
 import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
+import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.utils.Utils;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
+import kz.akmarzhan.nationaltest.views.game.GameStartActivity;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -32,7 +36,7 @@ import kz.akmarzhan.nationaltest.views.BaseActivity;
  * You can contact me at: aibolikdev@gmail.com
  */
 
-public class MenuActivity extends BaseActivity {
+public class MenuActivity extends BaseActivity implements PredmetsAdapter.PredmetClickListener {
 
     private static final String TAG = MenuActivity.class.getSimpleName();
 
@@ -53,6 +57,7 @@ public class MenuActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         mPredmetsAdapter = new PredmetsAdapter();
+        mPredmetsAdapter.setListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvPredmets.setLayoutManager(linearLayoutManager);
         rvPredmets.setAdapter(mPredmetsAdapter);
@@ -85,6 +90,14 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.fabtoolbar_fab) void showToolbar() {
         Logger.d(TAG, "showToolbar: ");
         ftlLayout.show();
+    }
+
+    @Override public void onPredmetClick(UserPredmet userPredmet) {
+        Intent intent = new Intent(this, GameStartActivity.class);
+        intent.putExtra(Defaults.EXTRA_PREDMET_ID, userPredmet.getPredmet().getObjectId());
+        intent.putExtra(Defaults.EXTRA_LAST_TEST_ID, userPredmet.getLastTestId());
+
+        startActivity(intent);
     }
 
     @Override public void onBackPressed() {

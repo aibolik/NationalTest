@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@color/app.background">
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_marginTop="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/text.white.primary"
+        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled"
+        />
+
+    <TextView
+        android:id="@+id/tv_questions_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/text.white.primary"
+        android:textSize="60sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_questions_label"
+        android:text="@string/game.questions"
+        android:textSize="22sp"
+        android:textColor="@color/text.white.primary"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_start"
+        style="@style/AppTheme.Button"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:text="@string/game.button.start.text"
+        android:textColor="@color/text.white.primary"
+        app:backgroundTint="@color/colorAccent"
+        />
+    </FrameLayout>
+
+</LinearLayout>

@@ -26,6 +26,7 @@ import kz.akmarzhan.nationaltest.utils.Utils;
 public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.PredmetHolder> {
 
     private List<UserPredmet> mPredmets;
+    private PredmetClickListener listener;
 
     public PredmetsAdapter() {
         mPredmets = new ArrayList<>();
@@ -38,15 +39,24 @@ public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.Predme
     }
 
     @Override public void onBindViewHolder(PredmetHolder holder, int position) {
-        UserPredmet predmet = mPredmets.get(position);
+        final UserPredmet predmet = mPredmets.get(position);
         Pair<Integer, Integer> levelPair = Utils.getLevelByExpereience(predmet.getExp());
         holder.tvPredmet.setText(predmet.getPredmet().getName());
         holder.tvLevel.setText(String.valueOf(levelPair.first));
         holder.tvExp.setText(predmet.getExp() + "/" + levelPair.second);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                listener.onPredmetClick(predmet);
+            }
+        });
     }
 
     @Override public int getItemCount() {
         return mPredmets.size();
+    }
+
+    public void setListener(PredmetClickListener listener) {
+        this.listener = listener;
     }
 
     public void setPredmets(List<UserPredmet> predmets) {
@@ -65,5 +75,9 @@ public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.Predme
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface PredmetClickListener {
+        void onPredmetClick(UserPredmet userPredmet);
     }
 }

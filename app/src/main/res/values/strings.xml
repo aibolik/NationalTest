@@ -20,6 +20,11 @@
     <!--Main menu strings-->
 
 
+    <!--Game strings-->
+    <string name="game.button.start.text">Start</string>
+    <string name="game.button.finish.text">Finish</string>
+    <string name="game.questions">questions</string>
+
     <!--Other strings-->
 
     <string name="user_level_info">%1$d xp | Level %2$d</string>

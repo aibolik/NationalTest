@@ -74,7 +74,8 @@ public class UserPredmet {
                     userPredmet.setExp((Integer) entry.getValue());
                     break;
                 case "predmet":
-                    userPredmet.setPredmet(Predmet.createPredmetFromMap((HashMap<String, Object>) entry.getValue()));
+                    userPredmet.setPredmet((Predmet) entry.getValue());
+//                    userPredmet.setPredmet(Predmet.createPredmetFromMap((HashMap<String, Object>) entry.getValue()));
                     break;
             }
         }

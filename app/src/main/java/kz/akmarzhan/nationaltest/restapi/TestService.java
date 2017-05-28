@@ -12,8 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
+import kz.akmarzhan.nationaltest.bus.events.LoadTestEvent;
+import kz.akmarzhan.nationaltest.bus.events.TestLoadedEvent;
 import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
+import kz.akmarzhan.nationaltest.models.Predmet;
+import kz.akmarzhan.nationaltest.models.Test;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
+import kz.akmarzhan.nationaltest.utils.Logger;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -41,7 +46,6 @@ public class TestService {
                 ArrayList<UserPredmet> userPredmets = new ArrayList<UserPredmet>();
                 int userExp = 0;
                 for (Map.Entry<String, Object> entry : props.entrySet()) {
-                    System.out.println(entry.getKey() + "/" + entry.getValue());
                     if(entry.getKey().equals("predmets")) {
                         for(HashMap<String, Object> predmetProps : (HashMap<String, Object>[]) entry.getValue()) {
                             UserPredmet userPredmet = UserPredmet.createFromMap(predmetProps);
@@ -57,17 +61,37 @@ public class TestService {
 
             }
         });
+    }
 
-//        mApi.getPredmets().enqueue(new Callback<List<Predmet>>() {
-//            @Override public void onResponse(Call<List<Predmet>> call, Response<List<Predmet>> response) {
-//                Logger.d(TAG, "onResponse: " + call.request().toString());
-//                mBus.post(new UserPredmetsLoadedEvent(response.body()));
-//            }
-//
-//            @Override public void onFailure(Call<List<Predmet>> call, Throwable t) {
-//
-//            }
-//        });
+    @Subscribe
+    public void onGetTests(final LoadTestEvent event) {
+        Logger.d(TAG, "Getting tests: ");
+        Backendless.Data.of(Predmet.class).findById(event.predmetObjectId, 1, new AsyncCallback<Predmet>() {
+            @Override public void handleResponse(Predmet predmet) {
+                final String predmetName = predmet.getName();
+                Test test = new Test();
+                for(Test t : predmet.getTests()) {
+                    if(t.getId() > event.lastTestId) {
+                        test = t;
+                        break;
+                    }
+                }
+                Logger.d(TAG, "Test: " + test.getId());
+                Backendless.Data.of(Test.class).findById(test, 1, new AsyncCallback<Test>() {
+                    @Override public void handleResponse(Test test) {
+                        mBus.post(new TestLoadedEvent(predmetName, test));
+                    }
+
+                    @Override public void handleFault(BackendlessFault fault) {
+
+                    }
+                });
+            }
+
+            @Override public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/app.background"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Why earth is round?"
+            android:textColor="@color/text.white.primary"
+            android:textSize="18sp"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_finish"
+            style="@style/AppTheme.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="@string/game.button.finish.text"
+            android:textColor="@color/text.white.primary"
+            app:backgroundTint="@color/colorAccent"
+            />
+
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_variants"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_a"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Variant A"
+            app:buttonTint="@color/colorPrimary"
+            />
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_b"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Variant A"
+            app:buttonTint="@color/colorPrimary"
+            />
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_c"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Variant A"
+            app:buttonTint="@color/colorPrimary"
+            />
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_d"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Variant A"
+            app:buttonTint="@color/colorPrimary"
+            />
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_e"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Variant A"
+            app:buttonTint="@color/colorPrimary"
+            />
+
+
+
+    </RadioGroup>
+
+</LinearLayout>
