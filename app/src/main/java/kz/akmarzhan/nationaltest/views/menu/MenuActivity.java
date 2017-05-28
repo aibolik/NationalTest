@@ -25,10 +25,10 @@ import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
 import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
 import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
-import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.utils.Utils;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 import kz.akmarzhan.nationaltest.views.game.GameStartActivity;
+import kz.akmarzhan.nationaltest.views.instructions.InstructionsActivity;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -87,8 +87,12 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
     }
 
     @OnClick(R.id.fabtoolbar_fab) void showToolbar() {
-        Logger.d(TAG, "showToolbar: ");
         ftlLayout.show();
+    }
+
+    @OnClick(R.id.iv_instructions) void openInstructions() {
+        Intent intent = new Intent(this, InstructionsActivity.class);
+        startActivity(intent);
     }
 
     @Override public void onPredmetClick(UserPredmet userPredmet) {
@@ -100,7 +104,6 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
     }
 
     @Override public void onBackPressed() {
-        Logger.d(TAG, "onBackPressed: ");
         if (fabToolbar.getVisibility() == View.VISIBLE) {
             ftlLayout.hide();
         } else {
