@@ -61,6 +61,7 @@ public class GameStartActivity extends BaseActivity {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra(Defaults.EXTRA_TEST, test);
         intent.putExtra(Defaults.EXTRA_PREDMET_NAME, predmetName);
+        intent.putExtra(Defaults.EXTRA_PREDMET_ID, predmetId);
         startActivity(intent);
     }
 

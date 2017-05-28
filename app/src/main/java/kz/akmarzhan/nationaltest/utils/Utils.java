@@ -1,6 +1,6 @@
 package kz.akmarzhan.nationaltest.utils;
 
-import android.util.Pair;
+import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 
 /**
  * Created by Aibol Kussain on 5/21/2017.
@@ -24,15 +24,15 @@ public class Utils {
         return target == null || target.isEmpty();
     }
 
-    public static Pair<Integer, Integer> getLevelByExpereience(int exp) {
+    public static FibonacciLevel getLevelByExpereience(int exp) {
         int a = 10;
         int b = 20;
         int c;
         if(exp < a) {
-            return new Pair<Integer, Integer>(1, a);
+            return new FibonacciLevel(0, a, 1);
         }
         if (exp < b) {
-            new Pair<Integer, Integer>(2, b);
+            return new FibonacciLevel(a, b, 2);
         }
         int level = 2;
         while(exp < b) {
@@ -41,6 +41,6 @@ public class Utils {
             b = a + b;
             a = c;
         }
-        return new Pair<Integer, Integer>(level, b);
+        return new FibonacciLevel(a, b, level);
     }
 }

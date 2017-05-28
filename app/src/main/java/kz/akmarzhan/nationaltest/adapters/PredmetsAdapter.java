@@ -1,7 +1,6 @@
 package kz.akmarzhan.nationaltest.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kz.akmarzhan.nationaltest.R;
+import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Utils;
 
@@ -40,10 +40,12 @@ public class PredmetsAdapter extends RecyclerView.Adapter<PredmetsAdapter.Predme
 
     @Override public void onBindViewHolder(PredmetHolder holder, int position) {
         final UserPredmet predmet = mPredmets.get(position);
-        Pair<Integer, Integer> levelPair = Utils.getLevelByExpereience(predmet.getExp());
+        FibonacciLevel level = Utils.getLevelByExpereience(predmet.getExp());
         holder.tvPredmet.setText(predmet.getPredmet().getName());
-        holder.tvLevel.setText(String.valueOf(levelPair.first));
-        holder.tvExp.setText(predmet.getExp() + "/" + levelPair.second);
+        holder.tvLevel.setText(String.valueOf(level.level));
+        holder.pbExp.setMax(level.upperBound - level.lowerBound);
+        holder.pbExp.setProgress(predmet.getExp() - level.lowerBound);
+        holder.tvExp.setText(predmet.getExp() + "/" + level.upperBound);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 listener.onPredmetClick(predmet);

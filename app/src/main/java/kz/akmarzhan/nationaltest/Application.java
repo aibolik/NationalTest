@@ -10,6 +10,7 @@ import io.realm.RealmConfiguration;
 import kz.akmarzhan.nationaltest.bus.BusProvider;
 import kz.akmarzhan.nationaltest.models.Predmet;
 import kz.akmarzhan.nationaltest.models.Test;
+import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.restapi.TestApi;
 import kz.akmarzhan.nationaltest.restapi.TestService;
 import retrofit2.Retrofit;
@@ -36,6 +37,7 @@ public class Application extends android.app.Application {
                 Defaults.BACKENDLESS_API_KEY);
         Backendless.Data.mapTableToClass("predmets", Predmet.class);
         Backendless.Data.mapTableToClass("tests", Test.class);
+        Backendless.Data.mapTableToClass("userpredmets", UserPredmet.class);
 
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration

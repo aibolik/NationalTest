@@ -7,10 +7,11 @@ import com.backendless.exceptions.BackendlessFault;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import kz.akmarzhan.nationaltest.bus.events.FinishTestEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadTestEvent;
 import kz.akmarzhan.nationaltest.bus.events.TestLoadedEvent;
@@ -43,17 +44,23 @@ public class TestService {
         Backendless.Data.of(BackendlessUser.class).findById(event.objectId, 2, new AsyncCallback<BackendlessUser>() {
             @Override public void handleResponse(BackendlessUser user) {
                 Map<String, Object> props = user.getProperties();
-                ArrayList<UserPredmet> userPredmets = new ArrayList<UserPredmet>();
+                UserPredmet[] userPredmetsArray = (UserPredmet[]) user.getProperty("predmets");
+                List<UserPredmet> userPredmets = Arrays.asList(userPredmetsArray);
                 int userExp = 0;
-                for (Map.Entry<String, Object> entry : props.entrySet()) {
-                    if(entry.getKey().equals("predmets")) {
-                        for(HashMap<String, Object> predmetProps : (HashMap<String, Object>[]) entry.getValue()) {
-                            UserPredmet userPredmet = UserPredmet.createFromMap(predmetProps);
-                            userExp += userPredmet.getExp();
-                            userPredmets.add(userPredmet);
-                        }
-                    }
+
+                for(int i = 0; i < userPredmets.size(); i++) {
+                    userExp += userExp += userPredmets.get(i).getExp();
                 }
+
+//                for (Map.Entry<String, Object> entry : props.entrySet()) {
+//                    if(entry.getKey().equals("predmets")) {
+//                        for(HashMap<String, Object> predmetProps : (HashMap<String, Object>[]) entry.getValue()) {
+//                            UserPredmet userPredmet = UserPredmet.createFromMap(predmetProps);
+//                            userExp += userPredmet.getExp();
+//                            userPredmets.add(userPredmet);
+//                        }
+//                    }
+//                }
                 mBus.post(new UserPredmetsLoadedEvent(userPredmets, userExp));
             }
 
@@ -77,6 +84,10 @@ public class TestService {
                     }
                 }
                 Logger.d(TAG, "Test: " + test.getId());
+                if(test.getId() == 0) {
+                    mBus.post(new TestLoadedEvent(predmetName, test));
+                    return;
+                }
                 Backendless.Data.of(Test.class).findById(test, 1, new AsyncCallback<Test>() {
                     @Override public void handleResponse(Test test) {
                         mBus.post(new TestLoadedEvent(predmetName, test));
@@ -94,4 +105,33 @@ public class TestService {
         });
     }
 
+    @Subscribe
+    public void finishTest(final FinishTestEvent event) {
+        Backendless.Data.of(BackendlessUser.class).findById(event.userId, 1, new AsyncCallback<BackendlessUser>() {
+            @Override public void handleResponse(final BackendlessUser user) {
+                List<UserPredmet> userPredmets = Arrays.asList((UserPredmet[]) user.getProperty("predmets"));
+                Logger.d("TestService", "userPredmetSize: " + userPredmets.size());
+                for(UserPredmet predmet : userPredmets) {
+                    if(predmet.getPredmet().getObjectId().equals(event.predmetObjectId)) {
+                        predmet.setExp(predmet.getExp() + event.score);
+                        predmet.setLastTestId(event.testId);
+                        Backendless.Data.save(predmet, new AsyncCallback<UserPredmet>() {
+                            @Override public void handleResponse(UserPredmet userPredmet) {
+                                Logger.d("TestService", "handleResponse: " + userPredmet);
+                            }
+
+                            @Override public void handleFault(BackendlessFault fault) {
+
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+
+            @Override public void handleFault(BackendlessFault fault) {
+
+            }
+        });
+    }
 }

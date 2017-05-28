@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,6 +23,7 @@ import kz.akmarzhan.nationaltest.R;
 import kz.akmarzhan.nationaltest.adapters.PredmetsAdapter;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
 import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
+import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.utils.Utils;
@@ -79,11 +79,10 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
                 mUser.setExp(event.mUserExp);
             }
         });
-        Pair<Integer, Integer> levelPair = Utils.getLevelByExpereience(mUser.getExp());
-        int level = levelPair.first;
-        tvUserLevel.setText(String.valueOf(level));
+        FibonacciLevel level = Utils.getLevelByExpereience(mUser.getExp());
+        tvUserLevel.setText(String.valueOf(level.level));
         Resources res = getResources();
-        String userLevelInfo = res.getString(R.string.user_level_info, mUser.getExp(), level);
+        String userLevelInfo = res.getString(R.string.user_level_info, mUser.getExp(), level.level);
         tvUserLevelInfo.setText(userLevelInfo);
     }
 

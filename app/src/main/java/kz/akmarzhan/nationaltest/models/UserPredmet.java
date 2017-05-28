@@ -44,7 +44,7 @@ public class UserPredmet {
         this.exp = exp;
     }
 
-    public long getLastTestId() {
+    public int getLastTestId() {
         return lastTestId;
     }
 

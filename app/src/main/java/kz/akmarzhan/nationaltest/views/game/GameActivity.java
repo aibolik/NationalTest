@@ -1,10 +1,12 @@
 package kz.akmarzhan.nationaltest.views.game;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,10 +17,10 @@ import butterknife.OnClick;
 import kz.akmarzhan.nationaltest.Defaults;
 import kz.akmarzhan.nationaltest.R;
 import kz.akmarzhan.nationaltest.adapters.QuestionsPagerAdapter;
+import kz.akmarzhan.nationaltest.bus.events.FinishTestEvent;
 import kz.akmarzhan.nationaltest.models.Question;
 import kz.akmarzhan.nationaltest.models.Test;
 import kz.akmarzhan.nationaltest.models.UserAnswer;
-import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 
 /**
@@ -33,12 +35,14 @@ public class GameActivity
 
     @BindView(R.id.pager) ViewPager pager;
     @BindView(R.id.tv_questions_progress) TextView tvQuestionsProgress;
+    @BindView(R.id.pb_questions_progress) ProgressBar pbQuestionsProgress;
     @BindView(R.id.tv_predmet_name) TextView tvPredmetName;
     @BindView(R.id.iv_next) ImageView ivNextQuestion;
     @BindView(R.id.iv_prev) ImageView ivPrevQuestion;
 
     private QuestionsPagerAdapter pagerAdapter;
 
+    private String predmetId;
     private Test test;
     private String predmetName;
     private int currentQuestion;
@@ -51,7 +55,10 @@ public class GameActivity
 
         ButterKnife.bind(this);
 
+        getUser();
+
         currentQuestion = 0;
+        predmetId = getIntent().getStringExtra(Defaults.EXTRA_PREDMET_ID);
         test = getIntent().getParcelableExtra(Defaults.EXTRA_TEST);
         predmetName = getIntent().getStringExtra(Defaults.EXTRA_PREDMET_NAME);
 
@@ -62,6 +69,7 @@ public class GameActivity
         }
 
         tvPredmetName.setText(predmetName);
+        pbQuestionsProgress.setMax(test.getQuestions().size());
 
         invalidateControllers();
 
@@ -108,6 +116,12 @@ public class GameActivity
             ivNextQuestion.setVisibility(View.VISIBLE);
         }
         tvQuestionsProgress.setText((currentQuestion + 1) + "/" + test.getQuestions().size());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            pbQuestionsProgress.setProgress(currentQuestion + 1, true);
+        }
+        else {
+            pbQuestionsProgress.setProgress(currentQuestion + 1);
+        }
     }
 
 
@@ -148,6 +162,7 @@ public class GameActivity
                     score = score + (q.getAnswers().contains("e") ? 1 : -1);
                 }
             }
-        }g
+        }
+        getBus().post(new FinishTestEvent(mUser.getObjectId(), predmetId, score, test.getId()));
     }
 }
