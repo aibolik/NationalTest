@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@color/app.background">
+
+    <TextView
+        android:layout_marginTop="80dp"
+        android:text="@string/game.score.label"
+        android:textSize="22sp"
+        android:textColor="@color/text.white.primary"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_score_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text.white.primary"
+        android:text="25/30"
+        android:textSize="60sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_score_text"
+        android:text="@string/game.score.excellent"
+        android:textSize="22sp"
+        android:textColor="@color/text.white.primary"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_menu"
+        android:layout_marginTop="32dp"
+        style="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="@string/game.button.menu.label"
+        android:textColor="@color/text.white.primary"
+        app:backgroundTint="@color/colorAccent"
+        />
+
+</LinearLayout>

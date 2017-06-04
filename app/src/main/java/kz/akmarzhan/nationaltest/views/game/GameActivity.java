@@ -1,5 +1,6 @@
 package kz.akmarzhan.nationaltest.views.game;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -164,5 +165,9 @@ public class GameActivity
             }
         }
         getBus().post(new FinishTestEvent(mUser.getObjectId(), predmetId, score, test.getId()));
+        Intent intent = new Intent(this, GameFinishActivity.class);
+        intent.putExtra(Defaults.EXTRA_TOTAL_SCORE, totalScore);
+        intent.putExtra(Defaults.EXTRA_SCORE, score);
+        startActivity(intent);
     }
 }

@@ -19,11 +19,17 @@
     
     <!--Main menu strings-->
 
-
     <!--Game strings-->
     <string name="game.button.start.text">Start</string>
     <string name="game.button.finish.text">Finish</string>
     <string name="game.questions">questions</string>
+    <string name="game.score.label">Your score</string>
+
+    <!--Score levels-->
+    <string name="game.score.low">Not bad</string>
+    <string name="game.score.good">Good</string>
+    <string name="game.score.excellent">Excellent</string>
+    <string name="game.button.menu.label">Menu</string>
 
     <!--Edit predmets strings-->
     <string name="predmets.button.add.text">Add</string>

@@ -19,5 +19,7 @@ public class Defaults {
     public static final String EXTRA_TEST = "EXTRA_TEST";
     public static final String EXTRA_PREDMET_NAME = "EXTRA_PREDMET_NAME";
     public static final String ARG_QUESTION = "ARG_QUESTION";
+    public static final String EXTRA_TOTAL_SCORE = "EXTRA_TOTAL_SCORE";
+    public static final String EXTRA_SCORE = "EXTRA_SCORE";
 
 }

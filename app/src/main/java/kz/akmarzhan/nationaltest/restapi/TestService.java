@@ -63,6 +63,7 @@ public class TestService {
 //                        }
 //                    }
 //                }
+
                 mBus.post(new UserPredmetsLoadedEvent(userPredmets, userExp));
             }
 

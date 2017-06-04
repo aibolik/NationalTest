@@ -76,6 +76,7 @@ public class BaseActivity extends AppCompatActivity {
                 user.setObjectId(loggedInUser.getObjectId());
                 user.setName(loggedInUser.getProperty("name").toString());
                 user.setEmail(loggedInUser.getEmail());
+                user.setExp((Integer) loggedInUser.getProperty("exp"));
                 bgRealm.copyToRealmOrUpdate(user);
             }
         }, onSuccess, onError);
