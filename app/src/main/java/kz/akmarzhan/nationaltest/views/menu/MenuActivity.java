@@ -27,6 +27,7 @@ import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Utils;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
+import kz.akmarzhan.nationaltest.views.game.EditPredmetActivity;
 import kz.akmarzhan.nationaltest.views.game.GameStartActivity;
 import kz.akmarzhan.nationaltest.views.instructions.InstructionsActivity;
 import kz.akmarzhan.nationaltest.views.settings.SettingsActivity;
@@ -89,6 +90,11 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
 
     @OnClick(R.id.fabtoolbar_fab) void showToolbar() {
         ftlLayout.show();
+    }
+
+    @OnClick(R.id.iv_edit) void openPredmetEdit() {
+        Intent intent = new Intent(this, EditPredmetActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.iv_instructions) void openInstructions() {

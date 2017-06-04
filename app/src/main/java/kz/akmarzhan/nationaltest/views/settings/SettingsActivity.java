@@ -79,7 +79,7 @@ public class SettingsActivity extends BaseActivity {
                                     @Override
                                     public void onSuccess() {
                                         Logger.d(TAG, "onSuccess: user updated: " + newUser.toString());
-g
+
                                     }
                                 }, new Realm.Transaction.OnError() {
                                     @Override

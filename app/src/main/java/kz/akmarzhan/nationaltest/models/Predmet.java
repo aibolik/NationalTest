@@ -19,6 +19,8 @@ public class Predmet {
     private String name;
     private List<Test> tests;
 
+    private boolean isSelected;
+
     public Predmet() {
 
     }
@@ -53,6 +55,14 @@ public class Predmet {
 
     public void setTests(List<Test> tests) {
         this.tests = tests;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @Override public String toString() {
