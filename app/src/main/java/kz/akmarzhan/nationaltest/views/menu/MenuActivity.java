@@ -29,6 +29,7 @@ import kz.akmarzhan.nationaltest.utils.Utils;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 import kz.akmarzhan.nationaltest.views.game.GameStartActivity;
 import kz.akmarzhan.nationaltest.views.instructions.InstructionsActivity;
+import kz.akmarzhan.nationaltest.views.settings.SettingsActivity;
 
 /**
  * Created by Aibol Kussain on 5/20/2017.
@@ -92,6 +93,11 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
 
     @OnClick(R.id.iv_instructions) void openInstructions() {
         Intent intent = new Intent(this, InstructionsActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.iv_settings) void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

@@ -84,6 +84,7 @@ public class TestService {
                     }
                 }
                 Logger.d(TAG, "Test: " + test.getId());
+                Logger.d(TAG, "Last test ID: " + event.lastTestId);
                 if(test.getId() == 0) {
                     mBus.post(new TestLoadedEvent(predmetName, test));
                     return;

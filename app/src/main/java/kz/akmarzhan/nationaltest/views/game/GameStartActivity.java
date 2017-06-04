@@ -52,6 +52,12 @@ public class GameStartActivity extends BaseActivity {
 
     @Subscribe
     public void onTestLoaded(TestLoadedEvent event) {
+        if(event.mTest.getId() == 0) {
+            showMessage("You have passed all tests");
+            finish();
+            return;
+        }
+
         this.test = event.mTest;
         this.predmetName = event.mPredmetName;
         tvQuestionsCount.setText(String.valueOf(test.getQuestions().size()));
