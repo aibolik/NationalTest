@@ -14,7 +14,7 @@ import kz.akmarzhan.nationaltest.views.BaseActivity;
 import kz.akmarzhan.nationaltest.views.menu.MenuActivity;
 
 /**
- * Created by aibol on 6/4/17.
+ * Created by Akmarzhan Raushanova on 6/4/17.
  */
 
 public class GameFinishActivity extends BaseActivity {

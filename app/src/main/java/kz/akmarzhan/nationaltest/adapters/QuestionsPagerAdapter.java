@@ -10,7 +10,7 @@ import kz.akmarzhan.nationaltest.models.Question;
 import kz.akmarzhan.nationaltest.views.game.QuestionFragment;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class QuestionsPagerAdapter extends FragmentPagerAdapter {

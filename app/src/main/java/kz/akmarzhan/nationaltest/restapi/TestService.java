@@ -24,9 +24,9 @@ import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Logger;
 
 /**
- * Created by Aibol Kussain on 5/20/2017.
+ * Created by Akmarzhan Raushanova on 5/20/2017.
  * Working on NationalTest. MobiLabs
- * You can contact me at: aibolikdev@gmail.com
+ * You can contact me at: akmarzhan.raushnanova@is.sdu.edu.kz
  */
 
 public class TestService {
@@ -131,6 +131,16 @@ public class TestService {
                         break;
                     }
                 }
+                user.setProperty("exp", (Integer)user.getProperty("exp") + event.score);
+                Backendless.UserService.update(user, new AsyncCallback<BackendlessUser>() {
+                    @Override public void handleResponse(BackendlessUser user) {
+                        Logger.d("TestService", "user updated score: " + user);
+                    }
+
+                    @Override public void handleFault(BackendlessFault fault) {
+
+                    }
+                });
             }
 
             @Override public void handleFault(BackendlessFault fault) {

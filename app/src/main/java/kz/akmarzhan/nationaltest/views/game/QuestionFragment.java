@@ -24,7 +24,7 @@ import kz.akmarzhan.nationaltest.models.Question;
 import kz.akmarzhan.nationaltest.utils.Logger;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class QuestionFragment extends Fragment {

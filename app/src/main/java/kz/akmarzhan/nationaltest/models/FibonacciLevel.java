@@ -1,7 +1,7 @@
 package kz.akmarzhan.nationaltest.models;
 
 /**
- * Created by aibol on 5/28/17.
+ * Created by Akmarzhan Raushanova on 5/28/17.
  */
 
 public class FibonacciLevel {

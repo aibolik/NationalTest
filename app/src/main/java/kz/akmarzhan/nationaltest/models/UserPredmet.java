@@ -5,7 +5,7 @@ import java.util.HashMap;
 import kz.akmarzhan.nationaltest.utils.Logger;
 
 /**
- * Created by aibol on 5/21/17.
+ * Created by Akmarzhan Raushanova on 5/21/17.
  */
 
 public class UserPredmet {

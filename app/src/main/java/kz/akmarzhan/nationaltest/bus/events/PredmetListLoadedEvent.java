@@ -5,7 +5,7 @@ import java.util.List;
 import kz.akmarzhan.nationaltest.models.Predmet;
 
 /**
- * Created by aibol on 6/4/17.
+ * Created by Akmarzhan Raushanova on 6/4/17.
  */
 
 public class PredmetListLoadedEvent {

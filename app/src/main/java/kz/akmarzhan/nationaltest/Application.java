@@ -17,9 +17,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Aibol Kussain on 5/20/2017.
+ * Created by Akmarzhan Raushanova on 5/20/2017.
  * Working on NationalTest. MobiLabs
- * You can contact me at: aibolikdev@gmail.com
+ * You can contact me at: akmarzhan.raushnanova@is.sdu.edu.kz
  */
 
 public class Application extends android.app.Application {

@@ -25,7 +25,7 @@ import kz.akmarzhan.nationaltest.models.UserAnswer;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class GameActivity

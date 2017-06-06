@@ -3,9 +3,9 @@ package kz.akmarzhan.nationaltest.utils;
 import kz.akmarzhan.nationaltest.models.FibonacciLevel;
 
 /**
- * Created by Aibol Kussain on 5/21/2017.
+ * Created by Akmarzhan Raushanova on 5/21/2017.
  * Working on NationalTest. MobiLabs
- * You can contact me at: aibolikdev@gmail.com
+ * You can contact me at: akmarzhan.raushnanova@is.sdu.edu.kz
  */
 
 public class Utils {

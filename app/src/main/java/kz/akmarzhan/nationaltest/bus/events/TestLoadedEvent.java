@@ -3,7 +3,7 @@ package kz.akmarzhan.nationaltest.bus.events;
 import kz.akmarzhan.nationaltest.models.Test;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class TestLoadedEvent {

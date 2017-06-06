@@ -1,7 +1,7 @@
 package kz.akmarzhan.nationaltest.bus.events;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class LoadTestEvent {

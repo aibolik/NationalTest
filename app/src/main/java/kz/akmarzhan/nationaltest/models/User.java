@@ -6,7 +6,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by aibol on 5/21/17.
+ * Created by Akmarzhan Raushanova on 5/21/17.
  */
 
 public class User extends RealmObject {

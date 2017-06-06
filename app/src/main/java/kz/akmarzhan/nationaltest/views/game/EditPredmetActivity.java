@@ -28,7 +28,7 @@ import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 
 /**
- * Created by aibol on 6/4/17.
+ * Created by Akmarzhan Raushanova on 6/4/17.
  */
 
 public class EditPredmetActivity extends BaseActivity implements UserPredmetsAdapter.PredmetActionListener {

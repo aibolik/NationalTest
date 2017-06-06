@@ -18,7 +18,7 @@ import kz.akmarzhan.nationaltest.models.Test;
 import kz.akmarzhan.nationaltest.views.BaseActivity;
 
 /**
- * Created by aibol on 5/27/17.
+ * Created by Akmarzhan Raushanova on 5/27/17.
  */
 
 public class GameStartActivity extends BaseActivity {
