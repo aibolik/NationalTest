@@ -30,6 +30,7 @@ import kz.akmarzhan.nationaltest.views.BaseActivity;
 import kz.akmarzhan.nationaltest.views.game.EditPredmetActivity;
 import kz.akmarzhan.nationaltest.views.game.GameStartActivity;
 import kz.akmarzhan.nationaltest.views.instructions.InstructionsActivity;
+import kz.akmarzhan.nationaltest.views.rating.RatingActivity;
 import kz.akmarzhan.nationaltest.views.settings.SettingsActivity;
 
 /**
@@ -99,6 +100,11 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
 
     @OnClick(R.id.iv_instructions) void openInstructions() {
         Intent intent = new Intent(this, InstructionsActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.iv_rating) void openRating() {
+        Intent intent = new Intent(this, RatingActivity.class);
         startActivity(intent);
     }
 

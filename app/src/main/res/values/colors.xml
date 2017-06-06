@@ -11,6 +11,10 @@
     <color name="text.dark.primary">#de000000</color>
     <color name="text.dark.secondary">#8a000000</color>
 
+    <color name="rating.highlighted">#131313</color>
+
+    <color name="divider">#1fffffff</color>
+
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#92CBC5</color>

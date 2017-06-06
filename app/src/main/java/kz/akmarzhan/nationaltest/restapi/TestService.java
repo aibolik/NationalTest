@@ -4,22 +4,27 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import kz.akmarzhan.nationaltest.bus.events.FinishTestEvent;
+import kz.akmarzhan.nationaltest.bus.events.ListOfUsersLoadedEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetListEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetsEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadTestEvent;
+import kz.akmarzhan.nationaltest.bus.events.LoadUsersEvent;
 import kz.akmarzhan.nationaltest.bus.events.PredmetListLoadedEvent;
 import kz.akmarzhan.nationaltest.bus.events.TestLoadedEvent;
 import kz.akmarzhan.nationaltest.bus.events.UserPredmetsLoadedEvent;
 import kz.akmarzhan.nationaltest.models.Predmet;
 import kz.akmarzhan.nationaltest.models.Test;
+import kz.akmarzhan.nationaltest.models.User;
 import kz.akmarzhan.nationaltest.models.UserPredmet;
 import kz.akmarzhan.nationaltest.utils.Logger;
 
@@ -179,6 +184,37 @@ public class TestService {
 
             @Override public void handleFault(BackendlessFault fault) {
 
+            }
+        });
+    }
+
+    @Subscribe
+    public void loadListOfUsers(final LoadUsersEvent event) {
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setSortBy("exp DESC");
+        Backendless.Data.of(BackendlessUser.class).find(queryBuilder, new AsyncCallback<List<BackendlessUser>>() {
+            @Override public void handleResponse(List<BackendlessUser> users) {
+                Logger.d("TestService", "list of users: " + users.size());
+
+                List<User> myUsers = new ArrayList<User>();
+
+                int rating = 0;
+                for(int i = 0; i < users.size(); i++) {
+                    User user = new User();
+                    user.setObjectId(users.get(i).getObjectId());
+                    user.setExp((Integer) users.get(i).getProperty("exp"));
+                    user.setName((String) users.get(i).getProperty("name"));
+                    user.setEmail(user.getEmail());
+                    myUsers.add(user);
+                    if(users.get(i).getObjectId().equals(event.userId)) {
+                        rating = i + 1;
+                    }
+                }
+                mBus.post(new ListOfUsersLoadedEvent(myUsers, rating));
+            }
+
+            @Override public void handleFault(BackendlessFault fault) {
+                Logger.d("TestService", "handleFault: " + fault.getMessage());
             }
         });
     }
