@@ -1,6 +1,5 @@
 package kz.akmarzhan.nationaltest.views.authentication;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,8 +33,6 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.et_password) EditText etPassword;
     @BindView(R.id.et_password2) EditText etPassword2;
 
-    ProgressDialog dialog;
-
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -46,10 +43,8 @@ public class RegisterActivity extends BaseActivity {
     @OnClick(R.id.bt_register) void registerUser() {
         AsyncCallback<BackendlessUser> callback = new AsyncCallback<BackendlessUser>() {
             @Override public void handleResponse(BackendlessUser registeredUser) {
+                hideDialog();
                 Logger.d(TAG, "User has been registered. ObjectID: " + registeredUser.getObjectId());
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.hide();
-                }
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -57,10 +52,8 @@ public class RegisterActivity extends BaseActivity {
             }
 
             @Override public void handleFault(BackendlessFault fault) {
+                hideDialog();
                 Logger.d(TAG, "handleFault: " + fault.getMessage());
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.hide();
-                }
                 showMessage(fault.getMessage());
             }
         };
@@ -87,8 +80,7 @@ public class RegisterActivity extends BaseActivity {
         user.setProperty("name", etFullName.getText().toString());
 
         Backendless.UserService.register(user, callback);
-        dialog = ProgressDialog.show(this, "",
-                "Registering. Please wait...", true);
+        showDialog("Registration", "Please wait...");
     }
 
 }

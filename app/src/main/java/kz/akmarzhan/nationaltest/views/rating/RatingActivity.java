@@ -54,6 +54,7 @@ public class RatingActivity extends BaseActivity {
     @Override protected void onResume() {
         super.onResume();
 
+        showDialog("Ratings", "Loading...");
         getBus().post(new LoadUsersEvent(mUser.getObjectId()));
     }
 

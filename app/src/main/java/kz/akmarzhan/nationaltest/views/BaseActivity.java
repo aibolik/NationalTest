@@ -1,5 +1,6 @@
 package kz.akmarzhan.nationaltest.views;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ public class BaseActivity extends AppCompatActivity {
     protected User mUser;
 
     private ViewGroup rootView;
+
+    protected ProgressDialog dialog;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +129,16 @@ public class BaseActivity extends AppCompatActivity {
 
     protected ViewGroup getView() {
         return rootView;
+    }
+
+    protected void showDialog(String title, String message) {
+        dialog = ProgressDialog.show(this, title, message, true);
+    }
+
+    protected void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.hide();
+        }
     }
 
     protected void showMessage(String message) {

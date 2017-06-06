@@ -55,6 +55,7 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
     @Override protected void onResume() {
         super.onResume();
 
+        showDialog("Subjects", "Loading...");
         getBus().post(new LoadPredmetListEvent(mUser.getObjectId()));
     }
 
@@ -64,6 +65,7 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
 
     @Subscribe
     public void onPredmetListLoaded(final PredmetListLoadedEvent event) {
+        hideDialog();
         mPredmetsAdapter.setPredmets(event.predmets);
     }
 
@@ -74,6 +76,7 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
         Logger.d("EditPredmetActivity", "onAddPredmet: " + predmet.getObjectId());
         final ArrayList<Predmet> predmetsCollection = new ArrayList<>();
         predmetsCollection.add(predmet);
+        showDialog("", "Adding subject");
         Backendless.Data.of(UserPredmet.class).save(userPredmet, new AsyncCallback<UserPredmet>() {
             @Override public void handleResponse(UserPredmet loadedUserPredmet) {
                 predmet.setSelected(true);
@@ -82,10 +85,11 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
                         loadedUserPredmet, "predmet", predmetsCollection, new AsyncCallback<Integer>() {
                             @Override public void handleResponse(Integer response) {
                                 Logger.d("EditPredmetActivity", "added predmet: " + response);
+                                hideDialog();
                             }
 
                             @Override public void handleFault(BackendlessFault fault) {
-
+                                hideDialog();
                             }
                         });
                 BackendlessUser user = new BackendlessUser();
@@ -96,16 +100,19 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
                         user, "predmets:userpredmets:n", userPredmets, new AsyncCallback<Integer>() {
                             @Override public void handleResponse(Integer response) {
                                 Logger.d("EditPredmetActivity", "added relation: " + response);
+                                hideDialog();
                             }
 
                             @Override public void handleFault(BackendlessFault fault) {
-
+                                hideDialog();
+                                showMessage(fault.getMessage());
                             }
                         });
             }
 
             @Override public void handleFault(BackendlessFault fault) {
-
+                hideDialog();
+                showMessage(fault.getMessage());
             }
         });
     }
@@ -113,6 +120,7 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
     @Override public void onRemovePredmet(final Predmet predmet) {
         BackendlessUser user = new BackendlessUser();
         user.setProperty("objectId", mUser.getObjectId());
+        showDialog("", "Removing subject");
         Backendless.Data.of(BackendlessUser.class).findById(mUser.getObjectId(), 1, new AsyncCallback<BackendlessUser>() {
             @Override public void handleResponse(BackendlessUser user) {
                 final List<UserPredmet> userPredmets = Arrays.asList((UserPredmet[]) user.getProperty("predmets"));
@@ -125,12 +133,14 @@ public class EditPredmetActivity extends BaseActivity implements UserPredmetsAda
                                 Logger.d("EditPredmetActivity", "predmet removed: " + response);
                                 predmet.setSelected(false);
                                 mPredmetsAdapter.notifyDataSetChanged();
+                                hideDialog();
                             }
 
                             @Override public void handleFault(BackendlessFault fault) {
-
+                                showMessage(fault.getMessage());
                             }
                         });
+                        break;
                     }
                 }
             }

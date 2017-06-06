@@ -47,11 +47,13 @@ public class GameStartActivity extends BaseActivity {
     @Override protected void onResume() {
         super.onResume();
 
+        showDialog("", "Loading tests...");
         getBus().post(new LoadTestEvent(predmetId, lastTestId));
     }
 
     @Subscribe
     public void onTestLoaded(TestLoadedEvent event) {
+        hideDialog();
         if(event.mTest.getId() == 0) {
             showMessage("You have passed all tests");
             finish();

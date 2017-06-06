@@ -1,6 +1,5 @@
 package kz.akmarzhan.nationaltest.views.authentication;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -27,8 +26,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.et_login) EditText etEmail;
     @BindView(R.id.et_password) EditText etPassword;
 
-    ProgressDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +35,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.bt_login) void login() {
-        dialog = ProgressDialog.show(this, "",
-                "Signing in. Please wait...", true);
+        showDialog("", "Signing in. Please wait...");
         Backendless.UserService.login(etEmail.getText().toString(),
                 etPassword.getText().toString(), new AsyncCallback<BackendlessUser>() {
                     public void handleResponse(final BackendlessUser loggedInUser) {
@@ -65,9 +61,7 @@ public class LoginActivity extends BaseActivity {
                     }
 
                     public void handleFault(BackendlessFault fault) {
-                        if (dialog != null && dialog.isShowing()) {
-                            dialog.hide();
-                        }
+                        hideDialog();
                         Toast.makeText(LoginActivity.this, fault.getMessage(), Toast.LENGTH_LONG).show();
                         Logger.d(TAG, "handleFault: " + fault.getMessage());
                         // login failed, to get the error code call fault.getCode()

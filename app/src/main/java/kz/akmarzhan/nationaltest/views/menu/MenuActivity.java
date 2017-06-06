@@ -71,11 +71,13 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
     @Override protected void onResume() {
         super.onResume();
 
+        showDialog("", "Loading...");
         getBus().post(new LoadPredmetsEvent(mUser.getObjectId()));
     }
 
     @Subscribe
     public void onPredmetsLoaded(final UserPredmetsLoadedEvent event) {
+        hideDialog();
         mPredmetsAdapter.setPredmets(event.mPredmets);
         realm.executeTransaction(new Realm.Transaction() {
             @Override public void execute(Realm realm) {

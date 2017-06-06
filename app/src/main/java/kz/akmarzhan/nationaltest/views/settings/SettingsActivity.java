@@ -65,6 +65,7 @@ public class SettingsActivity extends BaseActivity {
 
             if (isChangingPassword) {
                 Logger.d("SettingsActivity", "save: changing password" );
+                showDialog("Preferences", "Updating...");
                 Backendless.UserService.login(mUser.getEmail(), oldPassword, new AsyncCallback<BackendlessUser>() {
                     @Override public void handleResponse(final BackendlessUser newUser) {
                         Logger.d("SettingsActivity", "handleResponse: success password");
@@ -74,6 +75,7 @@ public class SettingsActivity extends BaseActivity {
 
                         Backendless.UserService.update(newUser, new AsyncCallback<BackendlessUser>() {
                             @Override public void handleResponse(final BackendlessUser newUser) {
+                                hideDialog();
                                 showMessage("Sussesfully updated");
                                 saveUser(newUser, new Realm.Transaction.OnSuccess() {
                                     @Override
@@ -90,6 +92,8 @@ public class SettingsActivity extends BaseActivity {
                             }
 
                             @Override public void handleFault(BackendlessFault fault) {
+                                hideDialog();
+                                showMessage(fault.getMessage());
                                 Logger.d("SettingsActivity", "handleFault: " + fault.getMessage());
                             }
                         });
@@ -102,6 +106,7 @@ public class SettingsActivity extends BaseActivity {
             } else {
                 Backendless.UserService.update(user, new AsyncCallback<BackendlessUser>() {
                     @Override public void handleResponse(final BackendlessUser newUser) {
+                        hideDialog();
                         showMessage("Sussesfully updated");
                         saveUser(newUser, new Realm.Transaction.OnSuccess() {
                             @Override
@@ -118,7 +123,9 @@ public class SettingsActivity extends BaseActivity {
                     }
 
                     @Override public void handleFault(BackendlessFault fault) {
+                        hideDialog();
                         Logger.d("SettingsActivity", "handleFault: " + fault.getMessage());
+                        showMessage(fault.getMessage());
                     }
                 });
             }
