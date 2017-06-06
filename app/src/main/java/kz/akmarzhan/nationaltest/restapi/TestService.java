@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import kz.akmarzhan.nationaltest.bus.events.ErrorEvent;
 import kz.akmarzhan.nationaltest.bus.events.FinishTestEvent;
 import kz.akmarzhan.nationaltest.bus.events.ListOfUsersLoadedEvent;
 import kz.akmarzhan.nationaltest.bus.events.LoadPredmetListEvent;
@@ -73,7 +74,7 @@ public class TestService {
             }
 
             @Override public void handleFault(BackendlessFault fault) {
-
+                mBus.post(new ErrorEvent(fault.getMessage()));
             }
         });
     }
@@ -103,13 +104,13 @@ public class TestService {
                     }
 
                     @Override public void handleFault(BackendlessFault fault) {
-
+                        mBus.post(new ErrorEvent(fault.getMessage()));
                     }
                 });
             }
 
             @Override public void handleFault(BackendlessFault fault) {
-
+                mBus.post(new ErrorEvent(fault.getMessage()));
             }
         });
     }
@@ -130,7 +131,7 @@ public class TestService {
                             }
 
                             @Override public void handleFault(BackendlessFault fault) {
-
+                                mBus.post(new ErrorEvent(fault.getMessage()));
                             }
                         });
                         break;
@@ -143,13 +144,13 @@ public class TestService {
                     }
 
                     @Override public void handleFault(BackendlessFault fault) {
-
+                        mBus.post(new ErrorEvent(fault.getMessage()));
                     }
                 });
             }
 
             @Override public void handleFault(BackendlessFault fault) {
-
+                mBus.post(new ErrorEvent(fault.getMessage()));
             }
         });
     }
@@ -177,13 +178,13 @@ public class TestService {
                     }
 
                     @Override public void handleFault(BackendlessFault fault) {
-
+                        mBus.post(new ErrorEvent(fault.getMessage()));
                     }
                 });
             }
 
             @Override public void handleFault(BackendlessFault fault) {
-
+                mBus.post(new ErrorEvent(fault.getMessage()));
             }
         });
     }
@@ -215,6 +216,7 @@ public class TestService {
 
             @Override public void handleFault(BackendlessFault fault) {
                 Logger.d("TestService", "handleFault: " + fault.getMessage());
+                mBus.post(new ErrorEvent(fault.getMessage()));
             }
         });
     }

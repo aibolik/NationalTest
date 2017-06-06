@@ -66,6 +66,8 @@ public class MenuActivity extends BaseActivity implements PredmetsAdapter.Predme
         rvPredmets.setAdapter(mPredmetsAdapter);
 
         getUser();
+
+        tvUserName.setText(mUser.getName());
     }
 
     @Override protected void onResume() {

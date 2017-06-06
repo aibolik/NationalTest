@@ -15,9 +15,11 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import io.realm.Realm;
 import kz.akmarzhan.nationaltest.bus.BusProvider;
+import kz.akmarzhan.nationaltest.bus.events.ErrorEvent;
 import kz.akmarzhan.nationaltest.models.User;
 import kz.akmarzhan.nationaltest.utils.Logger;
 import kz.akmarzhan.nationaltest.views.authentication.LoginActivity;
@@ -152,5 +154,11 @@ public class BaseActivity extends AppCompatActivity {
         else {
             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Subscribe
+    public void onError(ErrorEvent event) {
+        hideDialog();
+        showMessage(event.errorMessage);
     }
 }
