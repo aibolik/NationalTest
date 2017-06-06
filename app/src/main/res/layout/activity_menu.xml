@@ -133,7 +133,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_settings_white"/>
+                android:src="@drawable/ic_rules"/>
 
             <ImageView
                 android:id="@+id/iv_rating"
@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_settings_white"/>
+                android:src="@drawable/ic_rating"/>
 
             <ImageView
                 android:id="@+id/iv_settings"

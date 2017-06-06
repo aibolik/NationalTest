@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="kz.akmarzhan.nationaltest"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="kz.akmarzhan.nationaltest">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".Application"
@@ -18,25 +18,79 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".views.authentication.LoginActivity">
+
+        <activity
+            android:name=".views.authentication.LoginActivity"
+            android:label="@string/login.title">
         </activity>
-        <activity android:name=".views.authentication.RegisterActivity">
+
+        <activity
+            android:name=".views.authentication.RegisterActivity"
+            android:label="@string/register.title">
         </activity>
-        <activity android:name=".views.menu.MenuActivity">
+
+        <activity
+            android:name=".views.menu.MenuActivity"
+            android:label="@string/main_menu.title">
         </activity>
-        <activity android:name=".views.game.GameStartActivity">
+
+        <activity
+            android:name=".views.game.GameStartActivity"
+            android:label="@string/game.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
         </activity>
-        <activity android:name=".views.game.GameActivity">
+
+        <activity
+            android:name=".views.game.GameActivity"
+            android:label="@string/game.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
         </activity>
-        <activity android:name=".views.instructions.InstructionsActivity">
+
+        <activity
+            android:name=".views.instructions.InstructionsActivity"
+            android:label="@string/instructions.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
+
         </activity>
-        <activity android:name=".views.settings.SettingsActivity">
+        <activity
+            android:name=".views.settings.SettingsActivity"
+            android:label="@string/settings.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
         </activity>
-        <activity android:name=".views.game.EditPredmetActivity">
+
+        <activity
+            android:name=".views.game.EditPredmetActivity"
+            android:label="@string/predmets.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
         </activity>
-        <activity android:name=".views.game.GameFinishActivity">
+
+        <activity
+            android:name=".views.game.GameFinishActivity"
+            android:label="@string/game_finish.title">
         </activity>
-        <activity android:name=".views.rating.RatingActivity">
+
+        <activity
+            android:name=".views.rating.RatingActivity"
+            android:label="@string/instructions.title"
+            android:parentActivityName=".views.menu.MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.menu.MenuActivity"/>
         </activity>
 
         <activity android:name=".MainActivity">

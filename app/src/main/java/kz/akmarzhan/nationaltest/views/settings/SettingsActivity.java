@@ -57,6 +57,8 @@ public class SettingsActivity extends BaseActivity {
             isChangingPassword = true;
         }
 
+        showDialog("Preferences", "Updating...");
+
         if (validateFields(isChangingPassword)) {
             BackendlessUser user = new BackendlessUser();
             user.setProperty("objectId", mUser.getObjectId());
@@ -65,7 +67,6 @@ public class SettingsActivity extends BaseActivity {
 
             if (isChangingPassword) {
                 Logger.d("SettingsActivity", "save: changing password" );
-                showDialog("Preferences", "Updating...");
                 Backendless.UserService.login(mUser.getEmail(), oldPassword, new AsyncCallback<BackendlessUser>() {
                     @Override public void handleResponse(final BackendlessUser newUser) {
                         Logger.d("SettingsActivity", "handleResponse: success password");
@@ -136,23 +137,28 @@ public class SettingsActivity extends BaseActivity {
     private boolean validateFields(boolean isChangingPassword) {
         if (Utils.isEmpty(etName.getText().toString()) || Utils.isEmpty(etEmail.getText().toString())) {
             showMessage("Please, fill all fields");
+            hideDialog();
             return false;
         }
         if (!Utils.isValidEmail(etEmail.getText().toString())) {
             showMessage("Please, write valid email");
+            hideDialog();
             return false;
         }
         if (isChangingPassword) {
             if (Utils.isEmpty(etPasswordOld.getText().toString())) {
                 showMessage("Please, fill old password");
+                hideDialog();
                 return false;
             }
             if (Utils.isEmpty(etPassword2.getText().toString())) {
                 showMessage("Please, fill new password");
+                hideDialog();
                 return false;
             }
             if (!Utils.passwordsMatch(etPassword.getText().toString(), etPassword2.getText().toString())) {
                 showMessage("Passwords do not match");
+                hideDialog();
                 return false;
             }
             return true;

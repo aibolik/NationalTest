@@ -60,6 +60,7 @@ public class RatingActivity extends BaseActivity {
 
     @Subscribe
     public void onListOfUsersLoaded(ListOfUsersLoadedEvent event) {
+        hideDialog();
         tvRating.setText(getString(R.string.rating_user_rating, event.rating, event.users.size()));
         mAdapter.setCurrentUserId(mUser.getObjectId());
         mAdapter.setUsers(event.users);

@@ -132,6 +132,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showDialog(String title, String message) {
+        if(dialog != null) {
+            dialog.dismiss();
+        }
         dialog = ProgressDialog.show(this, title, message, true);
     }
 
