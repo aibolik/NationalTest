@@ -61,5 +61,6 @@
     <!--Other strings-->
 
     <string name="user_level_info">%1$d xp | Level %2$d</string>
+    <string name="action.logout">Log out</string>
     
 </resources>
